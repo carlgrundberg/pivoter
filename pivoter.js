@@ -51,7 +51,7 @@ if (Meteor.isClient) {
     });
 
     Template.page.desktop = function () {
-        return getWidth() > 400;
+        return Session.get("width") > 400;
     };
 
     Template.results.showResults = function () {
@@ -91,22 +91,16 @@ if (Meteor.isClient) {
         return buffer;
     });
 
-    function getWidth() {
-        if (self.innerWidth) {
-            return self.innerWidth;
-        }
-        else if (document.documentElement && document.documentElement.clientHeight) {
-            return document.documentElement.clientWidth;
-        }
-        else if (document.body) {
-            return document.body.clientWidth;
-        }
-        return 0;
-    }
+    Meteor.startup(function() {
+        Session.set("width", $(window).width());
+        $(window).resize(function(evt) {
+            Session.set("width", $(window).width());
+        });
+    });
 }
 
 if (Meteor.isServer) {
-    Meteor.startup(function () {
+        Meteor.startup(function () {
     });
 }
 
