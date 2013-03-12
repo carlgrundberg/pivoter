@@ -1,0 +1,69 @@
+<head>
+    <title>Pivoter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<div class="header">Pivoter</div>
+<div class="page">
+    {{> page}}
+</div>
+<div class="footer">
+    {{#if currentUser}}
+        {{> status}}
+    {{/if}}
+    {{loginButtons}}
+</div>
+</body>
+
+<template name="page">
+    {{#if desktop}}
+        {{> results}}
+    {{else}}
+        {{> grid}}
+    {{/if}}
+</template>
+
+<template name="grid">
+    {{#if currentUser}}
+        <div class="grid">
+            {{#each items }}
+                {{> griditem}}
+            {{/each}}
+        </div>
+    {{/if}}
+</template>
+
+<template name="griditem">
+    <div class="griditem">
+        <a href="#" class="button {{#if active }} active {{/if}}" rel="{{ value }}">{{{ label }}}</a>
+    </div>
+</template>
+
+<template name="status">
+    {{ votes }} votes
+</template>
+
+<template name="results">
+    <div class="results">
+    {{#if showResults}}
+        <div class="bars">
+            {{#key_value voteResult}}
+                {{> bar}}
+            {{/key_value}}
+        </div>
+    {{/if}}
+    {{#if hasVotes }}
+        <a href="#" class="reset">Reset</a>
+        {{#unless showResults}}
+        <a href="#" class="show">Show results</a>
+        {{/unless}}
+    {{/if}}
+    </div>
+</template>
+
+<template name="bar">
+    <div class="label">{{ key }}</div>
+    <div class="bar" style="width: {{ width }}px;">{{ value }}</div>
+</template>
