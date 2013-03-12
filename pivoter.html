@@ -10,9 +10,7 @@
     {{> page}}
 </div>
 <div class="footer">
-    {{#if currentUser}}
-        {{> status}}
-    {{/if}}
+    {{> status}}
     {{loginButtons}}
 </div>
 </body>
@@ -28,16 +26,16 @@
 <template name="grid">
     {{#if currentUser}}
         <div class="grid">
-            {{#each items }}
+            {{#key_value items}}
                 {{> griditem}}
-            {{/each}}
+            {{/key_value}}
         </div>
     {{/if}}
 </template>
 
 <template name="griditem">
     <div class="griditem">
-        <a href="#" class="button {{#if active }} active {{/if}}" rel="{{ value }}">{{{ label }}}</a>
+        <a href="#" class="button {{#if selectedItem }} active {{/if}}">{{{ value }}}</a>
     </div>
 </template>
 
@@ -64,6 +62,6 @@
 </template>
 
 <template name="bar">
-    <div class="label">{{ key }}</div>
+    <div class="label">{{{ key }}}</div>
     <div class="bar" style="width: {{ width }}px;">{{ value }}</div>
 </template>
