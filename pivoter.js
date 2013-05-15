@@ -23,7 +23,9 @@ if (Meteor.isClient) {
     Template.page.events({
         'click .reset':function (event) {
             event.preventDefault();
-            Votes.remove({});
+            for(vote in Votes) {
+                Votes.remove(vote._id);
+            }
             Session.set('showResults', false);
         }
     });
@@ -100,7 +102,7 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-        Meteor.startup(function () {
+    Meteor.startup(function () {
     });
 }
 
