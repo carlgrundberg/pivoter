@@ -23,9 +23,9 @@ if (Meteor.isClient) {
     Template.page.events({
         'click .reset':function (event) {
             event.preventDefault();
-            for(vote in Votes) {
+            Votes.find().forEach(function(vote) {
                 Votes.remove(vote._id);
-            }
+            });
             Session.set('showResults', false);
         }
     });
